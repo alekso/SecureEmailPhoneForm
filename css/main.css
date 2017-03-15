@@ -1,0 +1,13 @@
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+    background-color: white;
+    display: flex;
+    align-items: center;
+}
+.jumbotron p {
+    font-size: 10pt;
+}
+h4 {
+    font-weight: bolder;
+}

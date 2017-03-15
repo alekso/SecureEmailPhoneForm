@@ -59,7 +59,7 @@ Helpers::redirect();
  * @return true|string
  */
 
-function validate($validator)
+function validate(validators\Validator $validator)
 {
     if ($validator->validate())
     {

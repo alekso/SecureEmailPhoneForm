@@ -18,55 +18,47 @@ use app\Contact\Contact;
 use app\encryption\McryptEncryption;
 use app\validators;
 
-/**
- * @var string $email - registration email
- * @var string $phone - registration phone
- * @var string $retrieve_email - retrieve phone on email
- */
-if ($_POST)
+if (isset($_POST['email']) && isset($_POST['phone']))
 {
-    //post keys to vars
-    extract($_POST);
+    $email=validate(New validators\EmailValidator($_POST['email']));
+    $phone=validate(New validators\PhoneValidator($_POST['phone']));
 
-    if(isset($email) && isset($phone))
+    if ($email === true && $phone === true)
     {
-        $email=validate(New validators\EmailValidator($email));
-        $phone=validate(New validators\PhoneValidator($phone));
-        if ($email === true && $phone === true)
-        {
-            $contact = New Contact($email, new McryptEncryption(), DB::connect());
-            $contact->setPhone($phone);
-            $contact->createSecure();
-            // generate simple response to inform that record created and exit
-            echo Helpers::getAddSuccessHtml();
-            exit();
-        }
-        Helpers::setCookieError("email", $email);
-
+        $contact = New Contact($email, new McryptEncryption(), DB::connect());
+        $contact->setPhone($phone);
+        $contact->createSecure();
+        // generate simple response to inform that record created and exit
+        echo Helpers::getAddSuccessHtml();
+        exit();
     }
-
-    if (isset($retrieve_email))
-    {
-        $email=validate(New validators\EmailValidator($retrieve_email));
-        if ($email===true)
-        {
-            $contact = New Contact($email, new McryptEncryption(), DB::connect());
-            $contact->retrievePhone();
-            //generate html response
-            echo Helpers::getRetrieveSuccessHtml($email);
-            exit();
-        }
-
-        Helpers::setCookieError("retrieve_email", $email);
-    }
+    Helpers::setCookieError("email", $email);
 }
+
+if (isset($_POST['retrieve_email']))
+{
+    $email=validate(New validators\EmailValidator($_POST['retrieve_email']));
+    if ($email===true)
+    {
+        $contact = New Contact($email, new McryptEncryption(), DB::connect());
+        $contact->retrievePhone();
+        //generate html response
+        echo Helpers::getRetrieveSuccessHtml($email);
+        exit();
+    }
+
+    Helpers::setCookieError("retrieve_email", $email);
+}
+
 
 // make redirect
 Helpers::redirect();
+
 /**
  * @var validators\Validator $validator
  * @return true|string
  */
+
 function validate($validator)
 {
     if ($validator->validate())
@@ -75,6 +67,7 @@ function validate($validator)
     }
     return $validator->getValidationError();
 }
+
 /**
  * @return void
  */

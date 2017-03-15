@@ -1,11 +1,10 @@
 <?php
 namespace app\validators;
 
-class PhoneValidator implements IValidator{
+class PhoneValidator extends Validator
+{
 
     private $phone;
-
-    public $error_message;
 
     /**
      * PhoneValidator constructor.
@@ -30,11 +29,4 @@ class PhoneValidator implements IValidator{
         return $validation;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getValidationError()
-    {
-        return (isset($this->error_message))? $this->error_message : null;
-    }
 }

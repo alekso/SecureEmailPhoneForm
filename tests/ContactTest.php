@@ -17,7 +17,7 @@ class ContactTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->contact = New \app\Contact\Contact("test@test.com", new \app\encryption\McryptEncryption(), \app\DB::connect());
+        $this->contact = New \app\Contact\SecureContact("test@test.com", new \app\encryption\McryptEncryption(), \app\DB::connect());
     }
 
     function testItCanReadEmail()

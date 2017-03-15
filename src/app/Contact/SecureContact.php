@@ -8,9 +8,10 @@ use app\encryption\IEncryption;
  * Contact class file.
  *
  */
-class Contact
+class SecureContact
 {
 
+    use EmailTrait;
     /**
      * @var string
      */
@@ -36,7 +37,7 @@ class Contact
      */
     private $db_table="tbl_contacts";
 
-    use EmailTrait;
+
 
     /**
      * Contact constructor.

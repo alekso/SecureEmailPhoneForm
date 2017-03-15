@@ -1,0 +1,23 @@
+{
+    "name": "Demo project",
+    "description": "Demo",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aleko Apostolidis"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+            "Tests\\": "tests/"
+        }
+    }
+}

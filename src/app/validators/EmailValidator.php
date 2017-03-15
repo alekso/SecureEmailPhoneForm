@@ -1,7 +1,8 @@
 <?php
 namespace app\validators;
 
-class EmailValidator extends Validator{
+class EmailValidator extends Validator
+{
 
     private $email;
 
@@ -11,6 +12,7 @@ class EmailValidator extends Validator{
     }
 
     /**
+     * Returns the validator email, or FALSE if the validator fails.
      * @return string|false
      */
     public function validate()

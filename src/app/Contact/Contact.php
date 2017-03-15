@@ -1,12 +1,15 @@
 <?php
+
 namespace app\Contact;
+
 use app\encryption\IEncryption;
 
 /**
  * Contact class file.
  *
  */
-class Contact {
+class Contact
+{
     /**
      * @var string
      */
@@ -116,7 +119,8 @@ class Contact {
      * @return \PDOStatement
      */
     private function createRecord($email, $phone){
-        try{
+        try
+        {
             $checkRecord=$this->isRecord($email);
             if ($checkRecord) {
                 $this->deleteById($checkRecord);
@@ -158,7 +162,8 @@ class Contact {
      */
     private function deleteById($id)
     {
-        try {
+        try
+        {
             $statement = "DELETE FROM ".$this->db_table." WHERE id=".$id;
             // use exec() because no results are returned
             $this->connection->exec($statement);
@@ -175,13 +180,15 @@ class Contact {
      * @return \PDOStatement
      */
     private function getRecordByEmail($email){
-        try{
+        try
+        {
             $createQuery="SELECT phone FROM ".$this->db_table." WHERE email=:email";
             $statement = $this->connection->prepare($createQuery);
             $statement->execute(array(":email"=>$email));
             return $statement->fetch();
 
-        } catch (\PDOException $ex){
+        } catch (\PDOException $ex)
+        {
             error_log("Select error occurred".$ex->getMessage(), 0);
             exit();
         }
@@ -193,7 +200,8 @@ class Contact {
     public function retrievePhone()
     {
         $phone=$this->getPhone();
-        if ($phone) {
+        if ($phone)
+        {
             $subject="Your phone number";
             $message="Hi there,\n This email was sent from ".$_SERVER['HTTP_HOST'].". Your phone number is ".$phone;
             $this->sendEmail($this->getEmail(), $subject, $message);
@@ -211,7 +219,8 @@ class Contact {
     protected function sendEmail($to, $subject, $message)
     {
         $result=mail($to, $subject,$message);
-        if(!$result){
+        if(!$result)
+        {
             error_log("Cant send email please check your sendmail_path php.ini configuration or system log", 0);
         }
     }

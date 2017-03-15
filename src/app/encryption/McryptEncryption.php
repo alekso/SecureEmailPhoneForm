@@ -6,7 +6,8 @@ namespace app\encryption;
  * Class McryptEncryption
  * @package app\encryption
  */
-class McryptEncryption implements IEncryption{
+class McryptEncryption implements IEncryption
+{
 
     /**
      * @var array
@@ -19,7 +20,8 @@ class McryptEncryption implements IEncryption{
         $this->options=$this->staticSalt();
     }
 
-    public function hash($string){
+    public function hash($string)
+    {
         return @password_hash($string, PASSWORD_DEFAULT, $this->options);
     }
 
@@ -33,7 +35,8 @@ class McryptEncryption implements IEncryption{
         return rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($string), MCRYPT_MODE_CBC, md5(md5($key))), "\0");
     }
 
-    private function staticSalt(){
+    private function staticSalt()
+    {
        return array(
             'cost' => 11,
             'salt' =>base64_encode("ThisIsVerySecureSaltHashString"),

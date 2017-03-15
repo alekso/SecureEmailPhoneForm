@@ -13,7 +13,8 @@ namespace app\encryption;
  * Interface IEncryption
  * @package app\encryption
  */
-interface IEncryption {
+interface IEncryption
+{
     public function hash($string);
     public function encrypt($string, $key);
     public function decrypt($string, $key);

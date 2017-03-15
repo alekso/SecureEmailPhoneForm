@@ -12,6 +12,7 @@ class SecureContact
 {
 
     use EmailTrait;
+
     /**
      * @var string
      */
@@ -26,6 +27,7 @@ class SecureContact
      * @var IEncryption
      */
     private $encryptor;
+
     /**
      * @var \PDO
      */
@@ -36,8 +38,6 @@ class SecureContact
      * Contacts database table
      */
     private $db_table="tbl_contacts";
-
-
 
     /**
      * Contact constructor.
@@ -136,13 +136,14 @@ class SecureContact
                 $this->delete($checkRecord);
             }
 
-            $createQuery="INSERT INTO ".$this->db_table."(email,phone) VALUES(:email, :phone)";
+            $createQuery="INSERT INTO ".$this->db_table."(email, phone) VALUES(:email, :phone)";
             $statement = $this->connection->prepare($createQuery);
 
             $statement->execute(array(":email"=>$email, ":phone"=>$phone));
 
             return $statement;
-        } catch (\PDOException $ex)
+        }
+        catch (\PDOException $ex)
         {
             error_log("A database insert error occurred".$ex->getMessage(), 0);
             exit();
@@ -221,6 +222,7 @@ class SecureContact
     public function retrievePhone()
     {
         $phone=$this->getPhone();
+
         if ($phone)
         {
             $subject="Your phone number";

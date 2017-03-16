@@ -37,12 +37,14 @@ class SecureContact
 
     /**
      * Contact constructor.
+     * @param string $email
      * @param IEncryption $encryptor
      * @param ContactRepository $repository
      * @internal param \PDO $connection
      */
-    public function __construct(IEncryption $encryptor, ContactRepository $repository)
+    public function __construct($email, IEncryption $encryptor, ContactRepository $repository)
     {
+        $this->email=$email;
         $this->encryptor = $encryptor;
         $this->repository = $repository;
     }
@@ -55,11 +57,6 @@ class SecureContact
     public function getEmail()
     {
         return $this->email;
-    }
-
-    public function setEmail(string $email)
-    {
-        $this->email = $email;
     }
 
     /**

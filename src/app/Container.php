@@ -10,7 +10,7 @@ class Container
         static::$container[$key]=$callback;
     }
 
-    public static function make($name)
+    public static function make($name, $arg)
     {
         if (isset(static::$container[$name]))
         {
@@ -18,7 +18,7 @@ class Container
 
             if (is_callable($callback))
 
-                return $callback();
+                return $callback($arg);
 
             return $callback;
         }

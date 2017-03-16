@@ -30,8 +30,7 @@ if ( isset($_POST['email']) && isset($_POST['phone']) )
 
     if ($email && $phone)
     {
-        $contact = Container::make('contact');
-        $contact->setEmail($email);
+        $contact = Container::make('contact', $email);
         $contact->setPhone($phone);
         $contact->createSecure();
         // generate simple response to inform that record created and exit
@@ -39,7 +38,7 @@ if ( isset($_POST['email']) && isset($_POST['phone']) )
         exit();
     }
 
-    Helpers::setCookieError("email", $email);
+    Helpers::setCookieError("email", $emailValidator->getValidationError());
 }
 
 if (isset($_POST['retrieve_email']))
@@ -49,15 +48,14 @@ if (isset($_POST['retrieve_email']))
 
     if ($email)
     {
-        $contact = Container::make('contact');
-        $contact->setEmail($email);
+        $contact = Container::make('contact', $email);
         $contact->retrievePhone();
         //generate html response
         echo Helpers::getRetrieveSuccessHtml($email);
         exit();
     }
 
-    Helpers::setCookieError("retrieve_email", $email);
+    Helpers::setCookieError("retrieve_email", $emailValidator->getValidationError());
 }
 
 // make redirect

@@ -14,6 +14,7 @@ trait EmailTrait {
     private function sendEmail($to, $subject, $message)
     {
         $result=mail($to, $subject,$message);
+
         if(!$result)
         {
             error_log("Cant send email please check your sendmail_path php.ini configuration or system log", 0);

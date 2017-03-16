@@ -63,7 +63,7 @@ class SecureContact
     }
 
     /**
-     * @return string | boolean
+     * @return string | null
      */
     public function getPhone()
     {
@@ -80,7 +80,7 @@ class SecureContact
             return $this->decrypt($record["phone"]);
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -96,7 +96,7 @@ class SecureContact
      */
     public function encrypt()
     {
-        if (!empty($this->phone)&&!empty($this->phone))
+        if (!empty($this->email)&&!empty($this->phone))
         {
             return $this->encryptor->encrypt($this->phone, $this->email);
         }

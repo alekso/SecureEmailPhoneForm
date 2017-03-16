@@ -55,7 +55,8 @@ class ContactRepository {
      * @return int | false
      */
     public function findByEmail($email){
-        try {
+        try
+        {
             $statement = $this->connection->prepare("SELECT id FROM ".$this->db_table." WHERE email = :email");
             $statement->execute(array(':email' => $email));
 

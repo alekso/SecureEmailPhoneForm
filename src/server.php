@@ -17,12 +17,13 @@ classesAutoloader();
 use app\Contact\Repository\ContactRepository;
 use app\Contact\SecureContact;
 use app\encryption\McryptEncryption;
-use app\validators;
+use app\validators\EmailValidator;
+use app\validators\PhoneValidator;
 
 if (isset($_POST['email']) && isset($_POST['phone']))
 {
-    $email=validate(New validators\EmailValidator($_POST['email']));
-    $phone=validate(New validators\PhoneValidator($_POST['phone']));
+    $email=validate(New EmailValidator($_POST['email']));
+    $phone=validate(New PhoneValidator($_POST['phone']));
 
     if ($email === true && $phone === true)
     {
@@ -39,7 +40,7 @@ if (isset($_POST['email']) && isset($_POST['phone']))
 
 if (isset($_POST['retrieve_email']))
 {
-    $email=validate(New validators\EmailValidator($_POST['retrieve_email']));
+    $email=validate(New EmailValidator($_POST['retrieve_email']));
 
     if ($email===true)
     {

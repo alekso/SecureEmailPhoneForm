@@ -97,6 +97,7 @@ class SecureContact
         {
             return $this->encryptor->encrypt($this->phone, $this->email);
         }
+
         return null;
     }
 
@@ -104,7 +105,8 @@ class SecureContact
      * @param $phone_hash
      * @return mixed
      */
-    protected function decrypt($phone_hash){
+    protected function decrypt($phone_hash)
+    {
         return $this->encryptor->decrypt($phone_hash, $this->email);
     }
 

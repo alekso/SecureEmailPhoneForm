@@ -11,12 +11,10 @@ ini_set( "display_errors", "0" );
 
 //include database config file
 require_once "app/config.php";
+require_once "bindings.php";
 
 classesAutoloader();
 
-use app\Contact\Repository\ContactRepository;
-use app\Contact\SecureContact;
-use app\encryption\McryptEncryption;
 use app\validators\EmailValidator;
 use app\validators\PhoneValidator;
 
@@ -27,7 +25,9 @@ if (isset($_POST['email']) && isset($_POST['phone']))
 
     if ($email === true && $phone === true)
     {
-        $contact = New SecureContact( $email, new McryptEncryption(), new ContactRepository( DB::connect() ));
+        $contact=Container::make('contact');
+
+        $contact->setEmail($email);
         $contact->setPhone($phone);
         $contact->createSecure();
         // generate simple response to inform that record created and exit
@@ -44,7 +44,8 @@ if (isset($_POST['retrieve_email']))
 
     if ($email===true)
     {
-        $contact = New SecureContact($email, new McryptEncryption(), new ContactRepository(DB::connect()));
+        $contact=Container::make('contact');
+        $contact->setEmail($email);
         $contact->retrievePhone();
         //generate html response
         echo Helpers::getRetrieveSuccessHtml($email);

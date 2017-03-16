@@ -14,6 +14,7 @@ require_once "app/config.php";
 
 classesAutoloader();
 
+use app\Contact\Repository\ContactRepository;
 use app\Contact\SecureContact;
 use app\encryption\McryptEncryption;
 use app\validators;
@@ -25,7 +26,7 @@ if (isset($_POST['email']) && isset($_POST['phone']))
 
     if ($email === true && $phone === true)
     {
-        $contact = New SecureContact($email, new McryptEncryption(), DB::connect());
+        $contact = New SecureContact( $email, new McryptEncryption(), new ContactRepository( DB::connect() ));
         $contact->setPhone($phone);
         $contact->createSecure();
         // generate simple response to inform that record created and exit
@@ -42,7 +43,7 @@ if (isset($_POST['retrieve_email']))
 
     if ($email===true)
     {
-        $contact = New SecureContact($email, new McryptEncryption(), DB::connect());
+        $contact = New SecureContact($email, new McryptEncryption(), new ContactRepository(DB::connect()));
         $contact->retrievePhone();
         //generate html response
         echo Helpers::getRetrieveSuccessHtml($email);
@@ -60,7 +61,6 @@ Helpers::redirect();
  * @var validators\Validator $validator
  * @return true|string
  */
-
 function validate(validators\Validator $validator)
 {
     if ($validator->validate())

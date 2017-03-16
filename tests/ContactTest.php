@@ -1,23 +1,22 @@
 <?php
-require_once "../src/app/config.php";
-require_once  '../src/app/Contact/Contact.php';
-require_once  '../src/app/encryption/IEncryption.php';
-require_once  '../src/app/encryption/McryptEncryption.php';
-require_once '../src/app/DB.php';
-/**
- * Created by PhpStorm.
- * User: alex
- * Date: 11/27/2016
- * Time: 6:07 PM
- */
-class ContactTest extends PHPUnit_Framework_TestCase
+namespace Test;
+
+require_once __DIR__.'/../src/app/config.php';
+
+use app\Contact\Repository\ContactRepository;
+use PHPUnit\Framework\TestCase;
+use \app\Contact\SecureContact;
+use \app\encryption\McryptEncryption;
+use \app\DB;
+
+class ContactTest extends TestCase
 {
 
     private $contact;
 
     protected function setUp()
     {
-        $this->contact = New \app\Contact\SecureContact("test@test.com", new \app\encryption\McryptEncryption(), \app\DB::connect());
+        $this->contact = New SecureContact("test@test.com", new McryptEncryption(), new ContactRepository(DB::connect()));
     }
 
     function testItCanReadEmail()

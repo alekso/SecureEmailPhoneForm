@@ -12,11 +12,20 @@ namespace app;
 class DB
 {
     private static $options=array(\PDO::ATTR_PERSISTENT=>true);
-    public static function connect(){
+
+    public static function connect(array $config)
+    {
         try
         {
-           $_pdo = new \PDO(\DSN, \USERNAME, \PASSWORD, self::$options);
+           $_pdo = new \PDO (
+               "mysql:dbname={$config['dbname']};host={$config['host']};port={$config['port']}",
+               $config['username'],
+               $config['password'],
+               self::$options
+           );
+
            $_pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
             return  $_pdo;
         }
         catch (\PDOException $ex)

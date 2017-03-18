@@ -6,5 +6,5 @@
     "username": "homestead",
     "password": "secret"
   },
-  "encryptionSalt" : "ThisIsVerySecureSaltHashString"
+  "salt" : "ThisIsVerySecureSaltHashString"
 }

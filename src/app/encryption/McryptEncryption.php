@@ -2,6 +2,8 @@
 
 namespace app\encryption;
 
+use app\Config;
+
 /**
  * Class McryptEncryption
  * @package app\encryption
@@ -39,7 +41,7 @@ class McryptEncryption implements IEncryption
     {
        return array(
             'cost' => 11,
-            'salt' =>base64_encode("ThisIsVerySecureSaltHashString"),
+            'salt' => Config::get('salt'),
         );
     }
 }

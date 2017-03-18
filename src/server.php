@@ -11,14 +11,19 @@ error_reporting(1);
 ini_set( "display_errors", "1" );
 
 //include database config file
-require_once "app/config.php";
+//require_once "app/config.php";
+
 classAutoloader();
+
+
 
 use app\validators\EmailValidator;
 use app\validators\PhoneValidator;
 
-//DI Container bindings
+// DI Container bindings
 require_once "app/bindings.php";
+// Loading config file
+Config::load("../src/app.config.json");
 
 if ( isset($_POST['email']) && isset($_POST['phone']) )
 {

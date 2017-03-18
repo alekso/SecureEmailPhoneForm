@@ -1,0 +1,10 @@
+{
+  "database": {
+    "host":"localhost",
+    "port": 33060,
+    "dbname": "test001_11242016",
+    "username": "homestead",
+    "password": "secret"
+  },
+  "encryptionSalt" : "ThisIsVerySecureSaltHashString"
+}
